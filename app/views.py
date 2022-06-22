@@ -5,7 +5,12 @@ from rest_framework.authentication import get_authorization_header
 from .serializers import UserSerializer
 from rest_framework.response import Response
 from .forms import RegisterForm
+<<<<<<< HEAD
 from .models import User,auth, Room, Message
+=======
+from .models import User
+from django.contrib.auth import authenticate,login
+>>>>>>> fe15d3824e959fcb6945be803312782f8638de84
 from django.contrib import messages
 from .authentication import create_access_token,create_refresh_token,decode_access_token,decode_refresh_token
 
@@ -109,9 +114,9 @@ def signin(request):
     if request.method == 'POST':
         username=request.POST['username']
         password=request.POST['password']
-        user = auth.authenticate(username=username,password=password)
+        user = authenticate(username=username,password=password)
         if user is not None:
-            auth.login(request,user)
+            login(request,user)
             return redirect('index')
         else:
             messages.info(request, 'Invalid Credentials')
