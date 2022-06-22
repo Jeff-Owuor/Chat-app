@@ -1,0 +1,20 @@
+{% extends 'all_templates/base.html' %}
+{% load bootstrap5 %}
+{% block content %}
+<div height="100%">
+<div class="container" style="padding-top: 50px; height: 100%; border-radius: 5px;background-color: lightblue;padding: 20px;width: 50%;margin: auto;" class="my_signup_div">
+    <h2 class="text-center">SignUp</h2>
+    <hr>
+    <div class="form-data text-light mx-6" >
+        <form action="{% url 'signup' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% bootstrap_form form%}
+            <button class="btn btn-info" type="submit">SignUp</button>
+            <div class="">
+                <p class="text-base"> Already have an account? <b><a href="{% url 'login' %}"> LogIn </a></b></p>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+{% endblock %}
