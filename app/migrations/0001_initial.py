@@ -1,7 +1,7 @@
+
 import datetime
 import django.contrib.auth.models
 from django.db import migrations, models
-import django.db.models.deletion
 import django.utils.timezone
 
 
@@ -15,20 +15,20 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Room',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-            ],
-        ),
-        migrations.CreateModel(
             name='Message',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('message', models.CharField(max_length=100000)),
                 ('date', models.DateTimeField(blank=True, default=datetime.datetime.now)),
-                ('user', models.CharField(max_length=1000)),
-                ('room', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.room')),
+                ('username', models.CharField(max_length=1000)),
+                ('room', models.CharField(max_length=1000)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Room',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=100)),
             ],
         ),
         migrations.CreateModel(
