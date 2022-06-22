@@ -4,7 +4,8 @@ from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.authentication import get_authorization_header
 from rest_framework.response import Response
 
-from app.models import Room
+from app.models import Room,Message
+from django.http import HttpResponse, JsonResponse
 from .forms import RegisterForm,RoomsForm
 from django.contrib.auth import authenticate,login
 from django.contrib import messages
@@ -13,7 +14,7 @@ from django.contrib import messages
 
 
 def index(request):
-    return render(request,'app/index.html',{})
+    return render(request,'index.html',{})
     
 def signup(request):
     form = RegisterForm()
@@ -61,3 +62,18 @@ def checkview(request):
         new_room = Room.objects.create(name=room)
         new_room.save()
         return redirect('/'+room+'/?username='+username)
+    
+def send(request):
+    message = request.POST['message']
+    username = request.POST['username']
+    room_id = request.POST['room_id']
+
+    new_message = Message.objects.create(message=message, user=username, room=room_id)
+    new_message.save()
+    return HttpResponse('Message sent successfully')
+
+
+def getMessages(request, room):
+    room_details = Room.objects.get(name=room) 
+    messages = Message.objects.filter(room=room_details.id)
+    return JsonResponse({"messages":list(messages.values())})
