@@ -12,6 +12,6 @@ urlpatterns = [
     path('refresh/',RefreshView.as_view()),
     re_path(r'^signup',signup,name='signup'),
     re_path(r'^logout',logout,name='logout'),
-    re_path(r'^login',signin,name='signin'),    
+    re_path(r'^signin',signin,name='signin'),    
     
 ]
