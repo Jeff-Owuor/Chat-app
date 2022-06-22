@@ -4,8 +4,8 @@ from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.authentication import get_authorization_header
 from .serializers import UserSerializer
 from rest_framework.response import Response
-from .forms import RegisterForm
-from .models import User
+from .forms import RegisterForm,RoomsForm
+from .models import Users
 from django.contrib.auth import authenticate,login
 from django.contrib import messages
 from .authentication import create_access_token,create_refresh_token,decode_access_token,decode_refresh_token
@@ -26,7 +26,7 @@ class LoginView(APIView):
     def post(self,request):
         email = request.data['email']
         password = request.data['password']
-        user = User.objects.filter(email=email).first()
+        user = Users.objects.filter(email=email).first()
         if user is None:
             raise(AuthenticationFailed('User not found'))
         
@@ -52,7 +52,7 @@ class UserView(APIView):
             token = auth[1].decode('utf-8')
             id = decode_access_token(token)
             
-            user = User.objects.filter(pk=id).first()
+            user = Users.objects.filter(pk=id).first()
             return Response(UserSerializer(user).data)
         
         raise(AuthenticationFailed('Unauthenticated!'))
@@ -103,3 +103,12 @@ def logout(request):
     return redirect('signin')
     
 
+def room(request,room_id):
+    
+    if request.method == 'POST':
+        form = RoomsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('signin')
+    
+    return(request,'all_templates/room.html',{"form":form})
