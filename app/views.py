@@ -5,7 +5,8 @@ from rest_framework.authentication import get_authorization_header
 from .serializers import UserSerializer
 from rest_framework.response import Response
 from .forms import RegisterForm
-from .models import User
+from .models import User,auth
+from django.contrib import messages
 from .authentication import create_access_token,create_refresh_token,decode_access_token,decode_refresh_token
 # Create your views here.
 
@@ -72,5 +73,32 @@ class LogoutView(APIView):
             'message':'success'
         }
         return response
+    
+    
+def signup(request):
+    form = RegisterForm()
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('signin')
+    return render(request, 'all_templates/signup_form.html', {"form":form})
+
+def signin(request):
+    if request.method == 'POST':
+        username=request.POST['username']
+        password=request.POST['password']
+        user = auth.authenticate(username=username,password=password)
+        if user is not None:
+            auth.login(request,user)
+            return redirect('index')
+        else:
+            messages.info(request, 'Invalid Credentials')
+            return redirect('signin')
+    return render(request,'all_templates/signin.html')
+
+def logout(request):
+    logout(request)
+    return redirect('signin')
     
 
