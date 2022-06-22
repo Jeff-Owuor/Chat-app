@@ -5,7 +5,7 @@ from datetime import datetime
 
 # Create your models here.
 
-class Users(AbstractUser):
+class User(AbstractUser):
     name = models.CharField(max_length=255)
     email = models.CharField(max_length=255,unique=True)
     password = models.CharField(max_length=255)
@@ -18,9 +18,9 @@ class Users(AbstractUser):
 class Room(models.Model):
     name = models.CharField(max_length=100)
     
-    
+   
 class Message(models.Model):
     message = models.CharField(max_length=100000)
     date = models.DateTimeField(default=datetime.now,blank=True)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
-    room = models.ForeignKey(Room,on_delete=models.CASCADE)
+    username = models.CharField(max_length=1000)
+    room = models.CharField(max_length=1000)

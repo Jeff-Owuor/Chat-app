@@ -5,7 +5,7 @@ from rest_framework.authentication import get_authorization_header
 from .serializers import UserSerializer
 from rest_framework.response import Response
 from .forms import RegisterForm,RoomsForm
-from .models import Users
+from .models import User
 from django.contrib.auth import authenticate,login
 from django.contrib import messages
 from .authentication import create_access_token,create_refresh_token,decode_access_token,decode_refresh_token
@@ -26,7 +26,7 @@ class LoginView(APIView):
     def post(self,request):
         email = request.data['email']
         password = request.data['password']
-        user = Users.objects.filter(email=email).first()
+        user = User.objects.filter(email=email).first()
         if user is None:
             raise(AuthenticationFailed('User not found'))
         
@@ -52,7 +52,7 @@ class UserView(APIView):
             token = auth[1].decode('utf-8')
             id = decode_access_token(token)
             
-            user = Users.objects.filter(pk=id).first()
+            user = User.objects.filter(pk=id).first()
             return Response(UserSerializer(user).data)
         
         raise(AuthenticationFailed('Unauthenticated!'))
