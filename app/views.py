@@ -5,15 +5,36 @@ from rest_framework.authentication import get_authorization_header
 from .serializers import UserSerializer
 from rest_framework.response import Response
 from .forms import RegisterForm
-from .models import User,auth
+from .models import User,auth, Room, Message
 from django.contrib import messages
 from .authentication import create_access_token,create_refresh_token,decode_access_token,decode_refresh_token
-# Create your views here.
 
+# Create your views here.
 
 def index(request):
     return render(request,'app/index.html',{})
 
+# room parameter is collected for the url string passed
+def room(request, room):
+    username = request.GET.get('username')
+    room_details = Room.objects.get(name = room)
+    context = {"username": username, "room_details": room_details, "room": room}
+    return render(request, 'app/index.html')
+
+# method to check if user is in a room
+# also checks if a room exists in the platform
+def checkview(request):
+    room = request.POST['room_name']
+    username = request.POST['username']
+    
+    # checks if a given room provided by user exists
+    if Room.objects.filter(name = room).exists():
+        return redirect('/' + room + '/?username=' + username)
+    # if room does not exist in the platform, it should be created and saved
+    else:
+        new_room = Room.objects.create(name = room)
+        new_room.save()
+        
 class RegisterView(APIView):
     def post(self,request):
         serializer = UserSerializer(data=request.data)
