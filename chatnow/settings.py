@@ -43,6 +43,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+# AUTH_USER_MODEL = 'app.User'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -54,6 +55,8 @@ INSTALLED_APPS = [
     'app',
     'bootstrap5',
     'cloudinary',
+    'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
