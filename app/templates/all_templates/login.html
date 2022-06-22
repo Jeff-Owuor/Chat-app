@@ -1,0 +1,46 @@
+{% extends 'all_templates/base.html' %}
+{% load bootstrap5 %}
+{% load static %}
+{% block content %}
+
+<div>
+    <div style="margin: auto; width: 50%;">
+        <div class="margin-top: 20px; my_signin_div" style="border-radius: 5px;background-color: lightblue; padding: 20px;">
+            <div class="row text-center">
+                <div class="col-md-4" style="margin-top: 50px;">
+                    <h2 class="text-center">My Account</h2>
+                    <hr style="border: solid lightblue 1px;">
+                </div>
+                <div class="col-md-8">
+                    <img style="display: block;margin-left: auto;margin-right: auto;width: 50%;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSClCC2sTN0JYMZx12xcEgb5lELVfcJbTWAgmypCgB_fhJ6_VSx_fmrojdUj48pa7G5aYY&usqp=CAU" alt="">
+                </div>
+            </div>
+            {% for message in messages %}
+                <h5 class="text-danger">{{ message }}</h5>
+            {% endfor %}
+            <form action="" method="POST">
+            {% csrf_token %}
+                <label style="padding-bottom: 10px;" for="fname">Username</label>
+                <input style="width: 100%;
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;" class="signin_input" type="text" id="username" name="username" placeholder="Username ...">
+        
+                <label style="padding-bottom: 10px;" for="lname">Password</label>
+                <input style="width: 100%;padding: 14px 20px;margin: 8px 0;border: none;border-radius: 4px;cursor: pointer;" class="signin_input" type="password" id="password" name="password" placeholder="Password ...">
+        
+                <input type="submit" style="padding: 10px 30px;margin: 10px;" class="signin_button btn btn-info btn-md" value="LogIn">
+        
+                <div class="mt-5">
+                    <p class="">Don't Have An account?<b><a href="{% url 'signup' %}" class=""> Sign Up</a></b></p>
+                </div>
+            </form>
+        </div>
+    </div>  
+</div>
+
+
+
+{% endblock %}
