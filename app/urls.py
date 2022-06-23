@@ -1,5 +1,5 @@
 from django.urls import re_path,path,include
-from .views import index,signup,logout,signin,room,checkview,send,getMessages
+from .views import index,signup,logout,signin,room,checkview,send,getMessages,ajax_load_messages,chatroom
 
 
 
@@ -16,6 +16,8 @@ urlpatterns = [
     path('<str:room>/', room, name='room'),
     path('checkview', checkview, name='checkview'),
     path('send', send, name='send'),
-    path('getMessages/<str:room>/', getMessages, name='getMessages'),   
+    path("<int:pk>/", chatroom, name="chatroom"),
+    path('getMessages/<str:room>/', getMessages, name='getMessages'),
+    path("ajax/<int:pk>/", ajax_load_messages, name="chatroom-ajax"),   
     
 ]
