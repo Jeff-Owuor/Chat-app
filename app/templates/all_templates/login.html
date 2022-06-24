@@ -3,19 +3,49 @@
 {% load static %}
 {% block content %}
 
-<div>
-    <div style="margin: auto; width: 50%;">
-        <div class="margin-top: 20px; my_signin_div" style="border-radius: 5px;background-color: lightblue; padding: 20px;">
+<div class="container-fluid text-light" style="margin: auto; font-family: 'Poppins', sans-serif; background-color: #03312E; height: 100vh;border-radius: 50px;">
+    <div class="container" style="margin: auto;">
+        <div class="row">
+            <div class="col-md-4" style="margin: auto;">
+                <span class="iconify logo-icon" id="logo-icon" data-icon="raphael:codetalk" style="display: block;margin-left: auto;margin-right: auto;width: 50%;color: #6F73D2; width: 120px; height: 100px; border-radius: 20px; background-color: #BAFF29;" data-width="100" data-height="100"></span>
+                <h1 style="padding-top: 20px; font-family: 'Fascinate', cursive; font-size: 80px; color: #BAFF29;" class="text-center">Senami</h1>
+            </div></div>
+        <!-- <div class="margin-top: 20px; my_signin_div" style="border-radius: 5px;background-color: lightblue; padding: 20px;">
             <div class="row text-center">
                 <div class="col-md-4" style="margin-top: 50px;">
                     <h2 class="text-center">My Account</h2>
                     <hr style="border: solid lightblue 1px;">
+                </div> -->
+                
+                <div class="col-md-8" style="margin-top:100px;">
+                    <h1 style="padding-bottom: 10px; margin-top: 10px;" class="text-center">Welcome Back!</h1>
+                    <h5 class="text-center" style="padding-bottom: 10px;">Please LogIn To Continue</h5></div>
+                    <!-- <img style="display: block;margin-left: auto;margin-right: auto;width: 50%;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSClCC2sTN0JYMZx12xcEgb5lELVfcJbTWAgmypCgB_fhJ6_VSx_fmrojdUj48pa7G5aYY&usqp=CAU" alt=""> -->
+                    <div class="" style="margin: auto;">
+                        <form action="" method="POST" style="width: 100%; text-align: center;">
+                            {% for message in messages %}
+                                <h5 class="text-danger">{{ message }}</h5>
+                            {% endfor %}
+                            {% csrf_token %}
+                            <div>
+                                <label style="display: block; padding-bottom: 10px;" for="fname">Username</label>
+                                <input style="padding: 18px 20px;margin: 8px 0;background-color: #B0B0B0;border: none;border-radius: 4px;cursor: pointer;" class="signin_input" type="text" id="username" name="username" placeholder="Username ...">
+                            </div>
+                            <div>
+                                <label style="display: block; padding-bottom: 10px;" for="lname">Password</label>
+                                <input style="background-color: #B0B0B0;padding: 18px 20px;margin: 8px 0;border: none;border-radius: 4px;cursor: pointer;" class="signin_input" type="password" id="password" name="password" placeholder="Password ...">
+                            </div>
+                            <div>
+                                <input type="submit" style="margin-bottom: 20px; margin-top: 20px; width: 48%; background-image: linear-gradient( #02C3BD, #BAFF29);" class="signin_button btn btn-info btn-lg" value="LogIn">
+                            </div>
+                            <p class="text-center">Don't Have An account?<b><a style="padding-left: 10px;" href="{% url 'signup' %}" class=""> Sign Up</a></b></p>
+                        </form></form></div>
+                    </div>
                 </div>
-                <div class="col-md-8">
-                    <img style="display: block;margin-left: auto;margin-right: auto;width: 50%;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSClCC2sTN0JYMZx12xcEgb5lELVfcJbTWAgmypCgB_fhJ6_VSx_fmrojdUj48pa7G5aYY&usqp=CAU" alt="">
-                </div>
-            </div>
-            {% for message in messages %}
+        </div>
+    </div>
+</div></div>
+            <!-- {% for message in messages %}
                 <h5 class="text-danger">{{ message }}</h5>
             {% endfor %}
             <form action="" method="POST">
@@ -39,7 +69,7 @@
             </form>
         </div>
     </div>  
-</div>
+</div> -->
 
 
 

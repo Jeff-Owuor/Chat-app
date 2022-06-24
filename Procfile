@@ -1,0 +1,1 @@
+web: gunicorn chatnow.wsgi --log-file -
